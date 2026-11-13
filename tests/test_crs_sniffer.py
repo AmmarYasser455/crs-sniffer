@@ -164,6 +164,55 @@ def test_csv_numeric_metadata_header_and_strict_quotes(tmp_path):
     p.write_text('x,y,label\n1,2,"unclosed\n3,4,label\n')
     with pytest.raises(ValueError):
         read_csv(str(p))
+
+
+# (file content, expected points or ValueError). Comma CSVs that parsed before must parse
+# identically; ';' and tab are only used when comma parsing fails.
+DELIMITED = [
+    ("x;y\n13.4;52.5\n", [(13.4, 52.5)]),
+    ("13.4;52.5\n-0.1;51.5\n", [(13.4, 52.5), (-0.1, 51.5)]),
+    ("name;Lat;Lon\na;52.5;13.4\n", [(13.4, 52.5)]),
+    ("x\ty\n530000\t180000\n", [(530000.0, 180000.0)]),
+    ("530000\t180000\n", [(530000.0, 180000.0)]),
+    ('x;y;"label,description"\n1;2;foo\n', [(1.0, 2.0)]),
+    ('x;y;label\n1;2;"a;b"\n', [(1.0, 2.0)]),
+    # comma CSVs containing ';' or tabs keep their comma reading
+    ('"label;\ninfo",x,y\nfoo,1,2\n', [(1.0, 2.0)]),
+    ('label;"note,x,y\nfoo,1,2\n', [(1.0, 2.0)]),
+    ("x,y,label;a;b;c\n1,2,note\n", [(1.0, 2.0)]),
+    ("x,y,note\n1,2,a;b\n", [(1.0, 2.0)]),
+    ("x,y,note\n1,2,a\tb\n", [(1.0, 2.0)]),
+    # rejected: decimal commas, mixed delimiters, wrong arity, non-numbers
+    ("13,4;52,5\n", ValueError),
+    ("x;y\n1;2\n3,4\n", ValueError),
+    ("x;y\n1;2;3\n", ValueError),
+    ("x;y\nnan;1\n", ValueError),
+    ("x\ty\n1\tabc\n", ValueError),
+    ("x;y\n", ValueError),
+    (";\n", ValueError),
+    ("\t\n", ValueError),
+]
+
+
+def test_csv_delimiters_table(tmp_path, capsys):
+    for text, expected in DELIMITED:
+        path = _write(tmp_path, "d.csv", text)
+        if expected is ValueError:
+            with pytest.raises(ValueError):
+                read_csv(path)
+            assert main([path]) == 2, text
+            assert capsys.readouterr().err.startswith("invalid input: ")
+        else:
+            assert read_csv(path) == expected, text
+            assert read_file(path) == expected, text
+
+
+def test_csv_error_message_comes_from_comma_parse(tmp_path):
+    path = _write(tmp_path, "e.csv", "x,y\n1,abc\n")
+    with pytest.raises(ValueError, match="row 1 y"):
+        read_csv(path)
+
+
 ARGV_COORDS = ["", ";", "1", "1,2;;", "a,b", "nan,1", "inf,1", "1e999,2", "1,2,3", "1,", ",1", "1;2"]
 
 

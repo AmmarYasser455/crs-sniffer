@@ -35,7 +35,7 @@ sniff([(1490000.0, 6890000.0)])      # [Match(epsg=3857, name='WGS 84 / Pseudo-M
 sniff(read_file("parcels.geojson"))
 ```
 
-CSV files may have a header (`x`/`lon`/`easting` and `y`/`lat`/`northing` columns, any order) or be headerless two-column `x,y`.
+CSV files may have a header (`x`/`lon`/`easting` and `y`/`lat`/`northing` columns, any order) or be headerless two-column `x,y`. Semicolon- and tab-separated files (common spreadsheet exports) are also read: the file is parsed with `,` first, and `;` then tab are tried only if that fails, so comma files are read exactly as before. Decimal commas (`13,4;52,5`) and mixed delimiters are rejected.
 
 ## Malformed input safety net
 

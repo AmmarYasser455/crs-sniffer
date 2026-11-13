@@ -137,34 +137,54 @@ def _is_number(text: str) -> bool:
         return False
 
 
+DELIMITERS = (",", ";", "\t")  # tried in this order; comma first keeps old results
+
+
+def _parse_csv(text: str, delimiter: str) -> list[tuple[float, float]]:
+    try:
+        reader = csv.reader(io.StringIO(text, newline=""), delimiter=delimiter, strict=True)
+        rows = [r for r in reader if r]
+    except csv.Error as exc:
+        raise ValueError(f"invalid CSV: {exc}") from None
+    if not rows:
+        raise ValueError("CSV has no rows")
+    xi, yi, width = 0, 1, 2
+    names = [c.strip().lower() for c in rows[0]]
+    known = any(n in X_NAMES for n in names) and any(n in Y_NAMES for n in names)
+    if known or not any(_is_number(c) for c in rows[0]):
+        xs = [i for i, n in enumerate(names) if n in X_NAMES]
+        ys = [i for i, n in enumerate(names) if n in Y_NAMES]
+        if len(xs) != 1 or len(ys) != 1:
+            raise ValueError("header must contain exactly one x/lon and one y/lat column")
+        xi, yi, width = xs[0], ys[0], len(names)
+        rows = rows[1:]
+    out = []
+    for n, row in enumerate(rows, start=1):
+        if len(row) != width:
+            raise ValueError(f"data row {n} has {len(row)} columns, expected {width}")
+        out.append((_cell(row[xi], f"row {n} x"), _cell(row[yi], f"row {n} y")))
+    if not out:
+        raise ValueError("no coordinates found")
+    return out
+
+
 def read_csv(path) -> list[tuple[float, float]]:
-    """Read x,y pairs from a CSV. A header row (no numeric cells) selects columns by name."""
+    """Read x,y pairs from a CSV. A header row (no numeric cells) selects columns by name.
+
+    The file is parsed with ',' first. Only if that fails completely is it re-parsed
+    with ';' and then tab (common spreadsheet exports); the comma error is reported
+    when no delimiter yields valid coordinates.
+    """
     try:
         text = _read_text(path)
-        try:
-            rows = [r for r in csv.reader(io.StringIO(text, newline=""), strict=True) if r]
-        except csv.Error as exc:
-            raise ValueError(f"invalid CSV: {exc}") from None
-        if not rows:
-            raise ValueError("CSV has no rows")
-        xi, yi, width = 0, 1, 2
-        names = [c.strip().lower() for c in rows[0]]
-        known = any(n in X_NAMES for n in names) and any(n in Y_NAMES for n in names)
-        if known or not any(_is_number(c) for c in rows[0]):
-            xs = [i for i, n in enumerate(names) if n in X_NAMES]
-            ys = [i for i, n in enumerate(names) if n in Y_NAMES]
-            if len(xs) != 1 or len(ys) != 1:
-                raise ValueError("header must contain exactly one x/lon and one y/lat column")
-            xi, yi, width = xs[0], ys[0], len(names)
-            rows = rows[1:]
-        out = []
-        for n, row in enumerate(rows, start=1):
-            if len(row) != width:
-                raise ValueError(f"data row {n} has {len(row)} columns, expected {width}")
-            out.append((_cell(row[xi], f"row {n} x"), _cell(row[yi], f"row {n} y")))
-        if not out:
-            raise ValueError("no coordinates found")
-        return out
+        first_error = None
+        for delimiter in DELIMITERS:
+            try:
+                return _parse_csv(text, delimiter)
+            except ValueError as exc:
+                if first_error is None:
+                    first_error = exc
+        raise first_error
     except (ValueError, OSError):
         raise
     except Exception as exc:
