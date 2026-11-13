@@ -298,3 +298,20 @@ def test_cli_unreadable_paths_report_cleanly(tmp_path, capsys):
         lines = err.splitlines()
         assert len(lines) == 2 and all(ln.startswith("invalid input: ") for ln in lines), err
         assert "Traceback" not in err
+
+
+def test_readme_python_example():
+    matches = sniff([(1490000.0, 6890000.0)])
+    assert [(m.epsg, m.name) for m in matches] == [(3857, "WGS 84 / Pseudo-Mercator")]
+    assert matches[0].code == "EPSG:3857"
+
+
+def test_every_known_crs_contains_its_own_extent_corners():
+    from crs_sniffer.core import KNOWN_CRS
+
+    for epsg, _name, x0, y0, x1, y1 in KNOWN_CRS:
+        assert x0 < x1 and y0 < y1
+        corners = [(x0, y0), (x1, y0), (x0, y1), (x1, y1)]
+        assert epsg in [m.epsg for m in sniff(corners)]
+        # just outside the extent must not match this CRS
+        assert epsg not in [m.epsg for m in sniff([(x1 + 1, y1)])]
