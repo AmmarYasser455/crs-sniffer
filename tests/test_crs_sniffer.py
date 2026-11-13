@@ -30,6 +30,22 @@ def test_no_match():
     assert sniff([(1e9, 1e9)]) == []
 
 
+def test_overlapping_extents_rank_most_specific_first():
+    # Paris-area Lambert-93 point also fits Pseudo-Mercator; smaller extent wins.
+    assert codes([(652000.0, 6600000.0)]) == [2154, 3857]
+    # A point inside the LAEA extent but outside the others.
+    assert codes([(4000000.0, 3000000.0)]) == [3035, 3857]
+    # British National Grid point also fits Pseudo-Mercator.
+    assert codes([(530000.0, 180000.0)]) == [27700, 3857]
+
+
+def test_extent_edges_are_inclusive_and_every_point_must_fit():
+    assert codes([(180.0, 90.0)])[0] == 4326
+    assert 4326 not in codes([(180.0001, 90.0)])
+    # One point outside the British grid removes that candidate for all.
+    assert 27700 not in codes([(530000.0, 180000.0), (800000.0, 180000.0)])
+
+
 def test_negative_and_z():
     assert codes([(-100.0, -45.0)])[0] == 4326
     assert codes([(1, 2, 3)], allow_z=True)[0] == 4326
