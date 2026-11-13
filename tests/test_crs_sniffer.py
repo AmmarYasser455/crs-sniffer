@@ -100,6 +100,15 @@ def test_cli_allow_z(capsys):
     assert "invalid input:" in capsys.readouterr().err
 
 
+def test_cli_coords_trailing_semicolon(capsys):
+    assert main(["--coords=10,20;30,40;"]) == 0
+    with_semicolon = capsys.readouterr().out
+    assert main(["--coords=10,20;30,40"]) == 0
+    assert capsys.readouterr().out == with_semicolon
+    for bad in ("--coords=10,20;;", "--coords=;", "--coords=10,20;;30,40"):
+        assert main([bad]) == 2
+
+
 def test_cli_missing_args_exit_2():
     for argv in ([], ["--coords"], ["p.csv", "--coords"], ["--coords", "1,2", "--coords"]):
         with pytest.raises(SystemExit) as e:
@@ -155,7 +164,7 @@ def test_csv_numeric_metadata_header_and_strict_quotes(tmp_path):
     p.write_text('x,y,label\n1,2,"unclosed\n3,4,label\n')
     with pytest.raises(ValueError):
         read_csv(str(p))
-ARGV_COORDS = ["", ";", "1", "1,2;", "a,b", "nan,1", "inf,1", "1e999,2", "1,2,3", "1,", ",1", "1;2"]
+ARGV_COORDS = ["", ";", "1", "1,2;;", "a,b", "nan,1", "inf,1", "1e999,2", "1,2,3", "1,", ",1", "1;2"]
 
 
 def _write(tmp_path, name, data):

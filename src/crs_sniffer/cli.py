@@ -19,7 +19,10 @@ def parse_coords(text: str, allow_z: bool = False) -> list[list[float]]:
         raise ValueError("--coords must not be empty")
     allowed = (2, 3) if allow_z else (2,)
     out = []
-    for item in text.split(";"):
+    items = text.split(";")
+    if len(items) > 1 and not items[-1].strip():
+        items.pop()  # tolerate one trailing ';' ("1,2;3,4;")
+    for item in items:
         parts = item.split(",")
         if len(parts) not in allowed:
             raise ValueError(f"coordinate {item!r} must have {' or '.join(map(str, allowed))} values")
