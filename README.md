@@ -72,4 +72,4 @@ Known CRSs: EPSG:4326, 3857, 3035, 2154, 27700.
 - Small built-in set with approximate extents; UTM zones are not identified.
 - Lat/lon axis order and datum differences are not distinguished.
 - Small coordinates fit several CRSs; the result is a ranked guess, not proof.
-- Z values (GeoJSON, `--allow-z`) are validated but ignored when guessing; CSV Z columns are not read.
+- Z values (GeoJSON, `--allow-z`) are validated but ignored when guessing; for CSV, `--allow-z` also accepts headerless `x,y,z` files (Z validated, then ignored); with a header, only the named x/y columns are read.

@@ -324,3 +324,22 @@ def test_every_known_crs_contains_its_own_extent_corners():
         assert epsg in [m.epsg for m in sniff(corners)]
         # just outside the extent must not match this CRS
         assert epsg not in [m.epsg for m in sniff([(x1 + 1, y1)])]
+
+
+def test_headerless_xyz_csv_with_allow_z(tmp_path, capsys):
+    f = tmp_path / "xyz.csv"
+    f.write_text("10.5,20.5,100\n11.5,21.5,200\n")
+    assert read_csv(f, allow_z=True) == [(10.5, 20.5), (11.5, 21.5)]
+    assert main([str(f), "--allow-z"]) == 0
+    capsys.readouterr()
+    with pytest.raises(ValueError):
+        read_csv(f)
+    assert main([str(f)]) == 2
+
+
+def test_headerless_xyz_csv_validates_z(tmp_path):
+    for body in ("1,2,abc\n", "1,2,nan\n", "1,2,\n", "1,2,3\n4,5\n", "1,2\n3,4,5\n"):
+        f = tmp_path / "bad.csv"
+        f.write_text(body)
+        with pytest.raises(ValueError):
+            read_csv(f, allow_z=True)
