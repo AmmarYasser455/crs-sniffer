@@ -1,0 +1,164 @@
+import json
+
+import pytest
+
+from crs_sniffer import read_csv, read_file, read_geojson, sniff
+from crs_sniffer.cli import main
+
+
+def codes(coords, **kw):
+    return [m.epsg for m in sniff(coords, **kw)]
+
+
+def test_lonlat_ranked_first():
+    assert codes([(13.4, 52.5), (-0.1, 51.5)])[0] == 4326
+
+
+def test_web_mercator():
+    assert codes([(1490000.0, 6890000.0)])[0] == 3857
+
+
+def test_british_national_grid_over_mercator():
+    assert codes([(530000.0, 180000.0)])[0] == 27700
+
+
+def test_lambert93():
+    assert codes([(652000.0, 6862000.0)])[0] == 2154
+
+
+def test_no_match():
+    assert sniff([(1e9, 1e9)]) == []
+
+
+def test_negative_and_z():
+    assert codes([(-100.0, -45.0)])[0] == 4326
+    assert codes([(1, 2, 3)], allow_z=True)[0] == 4326
+
+
+def test_geojson_and_csv_files(tmp_path):
+    gj = tmp_path / "a.geojson"
+    gj.write_text(json.dumps({"type": "FeatureCollection", "features": [
+        {"type": "Feature", "geometry": None},
+        {"type": "Feature", "geometry": {"type": "Polygon",
+                                         "coordinates": [[[0, 0], [1, 0], [1, 1], [0, 0]]]}},
+    ]}))
+    assert len(read_geojson(gj)) == 4
+    csv_ = tmp_path / "a.csv"
+    csv_.write_text("name,Lat,Lon\na,52.5,13.4\nb,51.5,-0.1\n")
+    assert read_csv(csv_) == [(13.4, 52.5), (-0.1, 51.5)]
+    assert read_file(csv_) == read_csv(csv_)
+
+
+def test_cli_exit_codes(capsys):
+    assert main(["--coords=13.4,52.5"]) == 0
+    assert "EPSG:4326" in capsys.readouterr().out
+    assert main(["--coords=1e9,1e9"]) == 1
+    assert main(["--coords=1e9,1e9", "--json"]) == 1
+    assert capsys.readouterr().out.strip().endswith("[]")
+    assert main(["--coords=530000,180000", "--json"]) == 0
+    assert json.loads(capsys.readouterr().out)[0]["epsg"] == 27700
+
+
+def test_cli_allow_z(capsys):
+    assert main(["--coords=1,2,3", "--allow-z"]) == 0
+    assert main(["--coords=1,2,3"]) == 2
+    assert main(["--coords=1,2,abc", "--allow-z"]) == 2
+    assert main(["--coords=1,2,nan", "--allow-z"]) == 2
+    assert main(["--coords=1,2,1,4", "--allow-z"]) == 2
+    assert "invalid input:" in capsys.readouterr().err
+
+
+def test_cli_missing_args_exit_2():
+    for argv in ([], ["--coords"], ["p.csv", "--coords"], ["--coords", "1,2", "--coords"]):
+        with pytest.raises(SystemExit) as e:
+            main(argv)
+        assert e.value.code == 2
+
+
+BIG = 10**400
+POINTS = [
+    None, True, False, 5, 1.5, "1,2", {"x": 1, "y": 2}, [{"x": 1, "y": 2}], [], (), [[]],
+    [[1]], [[1, 2, 3]], [[1, 2], [3]], [[[1, 2]]], [[None, 1]], [[True, 2]], [["1", 2]],
+    [[float("nan"), 1]], [[1, float("inf")]], [[BIG, 1]], [[1, -BIG]], [{1, 2}],
+    [[[1], [2]]], [[1, [2]]], [b"ab"],
+]
+GEOJSON = [
+    "", "not json", "[]", "null", "5", '"x"', "{}", '{"type": []}', '{"type": null}',
+    '{"type": {"a": 1}}', '{"type":"FeatureCollection"}',
+    '{"type":"FeatureCollection","features":null}',
+    '{"type":"FeatureCollection","features":{}}',
+    '{"type":"FeatureCollection","features":[]}',
+    '{"type":"FeatureCollection","features":[null]}',
+    '{"type":"FeatureCollection","features":[{"type":"Feature","geometry":null}]}',
+    '{"type":"FeatureCollection","features":[{"type":"Feature","geometry":5}]}',
+    '{"type":"Feature","geometry":{"type":[]}}',
+    '{"type":"GeometryCollection","geometries":null}',
+    '{"type":"GeometryCollection","geometries":[null]}',
+    '{"type":"GeometryCollection","geometries":{}}',
+    '{"type":"Point"}', '{"type":"Point","coordinates":null}',
+    '{"type":"Point","coordinates":{"x":1,"y":2}}',
+    '{"type":"Point","coordinates":[1]}', '{"type":"Point","coordinates":[1,2,3]}',
+    '{"type":"Point","coordinates":[NaN,1]}', '{"type":"Point","coordinates":[Infinity,1]}',
+    '{"type":"Point","coordinates":[1e999,1]}', '{"type":"Point","coordinates":[1' + "0" * 400 + ',1]}',
+    '{"type":"Point","coordinates":[true,1]}', '{"type":"Point","coordinates":["1","2"]}',
+    '{"type":"LineString","coordinates":[1,2]}', '{"type":"LineString","coordinates":"ab"}',
+    '{"type":"Polygon","coordinates":[[1,2]]}',
+    '{"type":"Unknown","coordinates":[1,2]}',
+    "[" * 100000, '{"type":"GeometryCollection","geometries":[' * 200 + "]}" * 200,
+]
+CSV = [
+    b"", b"\n\n", b"x,y\n", b"\xff\xfe\x00bad", b"1,broken\n2,3\n", b"1,2,3\n",
+    b"1\n", b"a,b\n1,2\n", b"x,y\n1\n", b"x,y,x\n1,2,3\n", b'"1\n2",3\n', b"nan,1\n",
+    b"x,y\ninf,1\n", b"x,y\n1e999,1\n", b"1,2\n3\n", b"x,y\n" + b"1" * 200000 + b",2\n",
+    b'"unterminated,1\n', b"1,2\0\n",
+    b'x,y,label\n1,2,"unclosed\n3,4,label\n',
+    b'x,y,2024\n1,2,"unclosed\n3,4,label\n',
+]
+
+
+def test_csv_numeric_metadata_header_and_strict_quotes(tmp_path):
+    p = tmp_path / "h.csv"
+    p.write_text("x,y,2024\n13.4,52.5,value\n")
+    assert read_csv(str(p)) == [(13.4, 52.5)]
+    p.write_text('x,y,label\n1,2,"unclosed\n3,4,label\n')
+    with pytest.raises(ValueError):
+        read_csv(str(p))
+ARGV_COORDS = ["", ";", "1", "1,2;", "a,b", "nan,1", "inf,1", "1e999,2", "1,2,3", "1,", ",1", "1;2"]
+
+
+def _write(tmp_path, name, data):
+    p = tmp_path / name
+    p.write_bytes(data if isinstance(data, bytes) else data.encode())
+    return str(p)
+
+
+def test_malformed_inputs_table(tmp_path, capsys):
+    """Every malformed input: ValueError from the API, exit 2 and no traceback from the CLI."""
+    # points exist only in the API (the CLI builds points from strings, covered below)
+    for pts in POINTS:
+        with pytest.raises(ValueError):
+            sniff(pts)
+    with pytest.raises(ValueError):
+        sniff([[1, 2, 3, 4]], allow_z=True)
+    with pytest.raises(ValueError):
+        sniff([[1, 2, "bad"]], allow_z=True)
+    for bad_path in (None, 5, True, [], {}):
+        with pytest.raises(ValueError):
+            read_file(bad_path)
+    cases = [("a.geojson", g) for g in GEOJSON] + [("a.csv", c) for c in CSV]
+    assert len(cases) + len(POINTS) + len(ARGV_COORDS) >= 25
+    for name, data in cases:
+        path = _write(tmp_path, name, data)
+        with pytest.raises(ValueError):
+            read_file(path)
+        assert main([path]) == 2, (name, data[:60])
+        err = capsys.readouterr().err
+        assert err.startswith("invalid input: ") and "Traceback" not in err
+    for text in ARGV_COORDS:
+        assert main([f"--coords={text}"]) == 2, text
+        assert capsys.readouterr().err.startswith("invalid input: ")
+    # missing file: OSError from the API, exit 2 from the CLI
+    missing = str(tmp_path / "nope.csv")
+    with pytest.raises(OSError):
+        read_file(missing)
+    assert main([missing]) == 2
