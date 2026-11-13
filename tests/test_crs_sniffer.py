@@ -203,3 +203,30 @@ def test_malformed_inputs_table(tmp_path, capsys):
     with pytest.raises(OSError):
         read_file(missing)
     assert main([missing]) == 2
+
+
+def test_cli_unreadable_paths_report_cleanly(tmp_path, capsys):
+    """Paths that cannot be opened: API error type, exit 2, clean one-line stderr, empty stdout."""
+    (tmp_path / "dir.geojson").mkdir()
+    (tmp_path / "dir.csv").mkdir()
+    cases = [
+        (str(tmp_path / "nope.csv"), OSError),
+        (str(tmp_path / "nope.txt"), OSError),
+        (str(tmp_path / "nope.geojson"), OSError),
+        (str(tmp_path / "nope.json"), OSError),
+        (str(tmp_path / "missing_dir" / "a.csv"), OSError),
+        (str(tmp_path / "dir.geojson"), OSError),
+        (str(tmp_path / "dir.csv"), OSError),
+        ("", OSError),
+        ("a\0b.csv", ValueError),
+    ]
+    for path, api_error in cases:
+        with pytest.raises(api_error):
+            read_file(path)
+        assert main([path]) == 2, path
+        assert main([path, "--json"]) == 2, path
+        out, err = capsys.readouterr()
+        assert out == "", path
+        lines = err.splitlines()
+        assert len(lines) == 2 and all(ln.startswith("invalid input: ") for ln in lines), err
+        assert "Traceback" not in err
