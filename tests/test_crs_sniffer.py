@@ -75,6 +75,22 @@ def test_cli_exit_codes(capsys):
     assert json.loads(capsys.readouterr().out)[0]["epsg"] == 27700
 
 
+def test_cli_output_matches_readme_examples(capsys):
+    assert main(["--coords=530000,180000;531000,181000"]) == 0
+    assert capsys.readouterr().out == (
+        "best: EPSG:27700  OSGB36 / British National Grid\n"
+        "also: EPSG:3857  WGS 84 / Pseudo-Mercator\n"
+    )
+    assert main(["--coords=13.4,52.5", "--json"]) == 0
+    assert capsys.readouterr().out == (
+        '[{"epsg": 4326, "name": "WGS 84 (lon/lat)"}, '
+        '{"epsg": 27700, "name": "OSGB36 / British National Grid"}, '
+        '{"epsg": 3857, "name": "WGS 84 / Pseudo-Mercator"}]\n'
+    )
+    assert main(["--coords=1e9,1e9"]) == 1
+    assert capsys.readouterr().out == "no known CRS fits these coordinates\n"
+
+
 def test_cli_allow_z(capsys):
     assert main(["--coords=1,2,3", "--allow-z"]) == 0
     assert main(["--coords=1,2,3"]) == 2
