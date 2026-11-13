@@ -101,6 +101,15 @@ def test_cli_output_matches_readme_examples(capsys):
     assert capsys.readouterr().out == "no known CRS fits these coordinates\n"
 
 
+def test_cli_version(capsys):
+    from crs_sniffer import __version__
+
+    with pytest.raises(SystemExit) as exc:
+        main(["--version"])
+    assert exc.value.code == 0
+    assert capsys.readouterr().out.strip() == f"crs-sniffer {__version__}"
+
+
 def test_cli_allow_z(capsys):
     assert main(["--coords=1,2,3", "--allow-z"]) == 0
     assert main(["--coords=1,2,3"]) == 2
