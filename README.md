@@ -28,6 +28,9 @@ $ crs-sniffer --coords=13.4,52.5 --json
 
 $ crs-sniffer points.csv          # also .geojson / .json
 $ crs-sniffer --coords=1,2,3 --allow-z
+
+$ crs-sniffer --version
+crs-sniffer 0.1.0
 ```
 
 Coordinates are `x,y` pairs separated by `;`. Use `--coords=-1,2` (with `=`) for negative values.

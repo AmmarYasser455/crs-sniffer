@@ -9,6 +9,7 @@ import argparse
 import json
 import sys
 
+from . import __version__
 from .core import sniff
 from .io import read_file
 
@@ -38,6 +39,7 @@ def build_parser() -> argparse.ArgumentParser:
         prog="crs-sniffer",
         description="Guess the EPSG code of coordinates from value ranges and known extents.",
     )
+    p.add_argument("--version", action="version", version=f"%(prog)s {__version__}")
     src = p.add_mutually_exclusive_group(required=True)
     src.add_argument("path", nargs="?", help="GeoJSON (.geojson/.json) or CSV (.csv/.txt) file")
     src.add_argument("--coords", metavar="X,Y;X,Y", help="inline coordinates; use --coords=-1,2 for negatives")
