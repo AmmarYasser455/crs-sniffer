@@ -15,6 +15,14 @@ $ crs-sniffer --coords="530000,180000;531000,181000"
 best: EPSG:27700  OSGB36 / British National Grid
 also: EPSG:3857  WGS 84 / Pseudo-Mercator
 
+$ crs-sniffer --coords="651000,6862000;652000,6863000"
+best: EPSG:2154  RGF93 v1 / Lambert-93
+also: EPSG:3857  WGS 84 / Pseudo-Mercator
+
+$ crs-sniffer --coords="3750000,2900000;4300000,3300000"
+best: EPSG:3035  ETRS89 / LAEA Europe
+also: EPSG:3857  WGS 84 / Pseudo-Mercator
+
 $ crs-sniffer --coords=13.4,52.5 --json
 [{"epsg": 4326, "name": "WGS 84 (lon/lat)"}, {"epsg": 27700, "name": "OSGB36 / British National Grid"}, {"epsg": 3857, "name": "WGS 84 / Pseudo-Mercator"}]
 
