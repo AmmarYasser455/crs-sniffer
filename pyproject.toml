@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "crs-sniffer"
+version = "0.1.0"
+description = "Guess the most likely EPSG code of coordinates from value ranges and known extents"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.10"
+dependencies = []
+
+[project.scripts]
+crs-sniffer = "crs_sniffer.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
