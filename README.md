@@ -26,6 +26,9 @@ also: EPSG:3857  WGS 84 / Pseudo-Mercator
 $ crs-sniffer --coords=13.4,52.5 --json
 [{"epsg": 4326, "name": "WGS 84 (lon/lat)"}, {"epsg": 27700, "name": "OSGB36 / British National Grid"}, {"epsg": 3857, "name": "WGS 84 / Pseudo-Mercator"}]
 
+$ crs-sniffer --coords="530000,180000;531000,181000" --quiet
+EPSG:27700
+
 $ crs-sniffer points.csv          # also .geojson / .json
 $ crs-sniffer --coords=1,2,3 --allow-z
 
@@ -34,6 +37,8 @@ crs-sniffer 0.1.0
 ```
 
 Coordinates are `x,y` pairs separated by `;`. Use `--coords=-1,2` (with `=`) for negative values.
+
+`-q`/`--quiet` prints only the best code, for scripts; when no CRS fits the usual message is printed, and `--json` takes precedence.
 
 Exit status: `0` at least one candidate, `1` no known CRS fits (also with `--json`, which prints `[]`), `2` invalid input.
 
