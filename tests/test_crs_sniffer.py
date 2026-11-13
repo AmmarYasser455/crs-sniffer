@@ -309,6 +309,35 @@ def test_quiet_prints_only_best_code(capsys):
     assert capsys.readouterr().out == "no known CRS fits these coordinates\n"
 
 
+def test_cli_reads_csv_and_geojson_files(tmp_path, capsys):
+    csv_path = tmp_path / "points.csv"
+    csv_path.write_text("easting,northing\n530000,180000\n531000,181000\n")
+    assert main([str(csv_path)]) == 0
+    assert capsys.readouterr().out == (
+        "best: EPSG:27700  OSGB36 / British National Grid\n"
+        "also: EPSG:3857  WGS 84 / Pseudo-Mercator\n"
+    )
+    gj_path = tmp_path / "parcels.geojson"
+    gj_path.write_text(
+        json.dumps({"type": "Point", "coordinates": [651000, 6862000]})
+    )
+    assert main([str(gj_path), "--quiet"]) == 0
+    assert capsys.readouterr().out == "EPSG:2154\n"
+    assert main([str(gj_path), "--json"]) == 0
+    assert json.loads(capsys.readouterr().out)[0] == {
+        "epsg": 2154,
+        "name": "RGF93 v1 / Lambert-93",
+    }
+
+
+def test_cli_path_and_coords_are_mutually_exclusive(tmp_path):
+    path = tmp_path / "points.csv"
+    path.write_text("x,y\n1,2\n")
+    with pytest.raises(SystemExit) as exc:
+        main([str(path), "--coords=1,2"])
+    assert exc.value.code == 2
+
+
 def test_readme_python_example():
     matches = sniff([(1490000.0, 6890000.0)])
     assert [(m.epsg, m.name) for m in matches] == [(3857, "WGS 84 / Pseudo-Mercator")]
