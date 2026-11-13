@@ -45,7 +45,7 @@ def read_file(path, allow_z: bool = False) -> list[tuple[float, float]]:
     p = _check_path(path)
     try:
         if p.lower().endswith((".csv", ".txt")):
-            return read_csv(p)
+            return read_csv(p, allow_z)
         return read_geojson(p, allow_z)
     except (ValueError, OSError):
         raise
@@ -140,7 +140,7 @@ def _is_number(text: str) -> bool:
 DELIMITERS = (",", ";", "\t")  # tried in this order; comma first keeps old results
 
 
-def _parse_csv(text: str, delimiter: str) -> list[tuple[float, float]]:
+def _parse_csv(text: str, delimiter: str, allow_z: bool = False) -> list[tuple[float, float]]:
     try:
         reader = csv.reader(io.StringIO(text, newline=""), delimiter=delimiter, strict=True)
         rows = [r for r in reader if r]
@@ -158,18 +158,28 @@ def _parse_csv(text: str, delimiter: str) -> list[tuple[float, float]]:
             raise ValueError("header must contain exactly one x/lon and one y/lat column")
         xi, yi, width = xs[0], ys[0], len(names)
         rows = rows[1:]
+        headerless_z = False
+    else:
+        # headerless x,y,z: the width is fixed by the first row
+        headerless_z = allow_z and len(rows[0]) == 3
+        if headerless_z:
+            width = 3
     out = []
     for n, row in enumerate(rows, start=1):
         if len(row) != width:
             raise ValueError(f"data row {n} has {len(row)} columns, expected {width}")
+        if headerless_z:
+            _cell(row[2], f"row {n} z")
         out.append((_cell(row[xi], f"row {n} x"), _cell(row[yi], f"row {n} y")))
     if not out:
         raise ValueError("no coordinates found")
     return out
 
 
-def read_csv(path) -> list[tuple[float, float]]:
+def read_csv(path, allow_z: bool = False) -> list[tuple[float, float]]:
     """Read x,y pairs from a CSV. A header row (no numeric cells) selects columns by name.
+
+    With allow_z, a headerless file may have three columns x,y,z (Z is validated, then ignored).
 
     The file is parsed with ',' first. Only if that fails completely is it re-parsed
     with ';' and then tab (common spreadsheet exports); the comma error is reported
@@ -180,7 +190,7 @@ def read_csv(path) -> list[tuple[float, float]]:
         first_error = None
         for delimiter in DELIMITERS:
             try:
-                return _parse_csv(text, delimiter)
+                return _parse_csv(text, delimiter, allow_z)
             except ValueError as exc:
                 if first_error is None:
                     first_error = exc
