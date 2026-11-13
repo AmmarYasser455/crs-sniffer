@@ -45,6 +45,10 @@ def build_parser() -> argparse.ArgumentParser:
     src.add_argument("--coords", metavar="X,Y;X,Y", help="inline coordinates; use --coords=-1,2 for negatives")
     p.add_argument("--allow-z", action="store_true", help="accept a third (Z) value per coordinate")
     p.add_argument("--json", action="store_true", help="print matches as JSON")
+    p.add_argument(
+        "-q", "--quiet", action="store_true",
+        help="print only the best EPSG code (e.g. EPSG:27700); ignored with --json",
+    )
     return p
 
 
@@ -63,6 +67,8 @@ def main(argv: list[str] | None = None) -> int:
         return 2
     if args.json:
         print(json.dumps([{"epsg": m.epsg, "name": m.name} for m in matches]))
+    elif matches and args.quiet:
+        print(matches[0].code)
     elif matches:
         for i, m in enumerate(matches):
             print(f"{'best' if i == 0 else 'also'}: {m.code}  {m.name}")

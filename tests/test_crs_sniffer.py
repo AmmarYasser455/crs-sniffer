@@ -300,6 +300,15 @@ def test_cli_unreadable_paths_report_cleanly(tmp_path, capsys):
         assert "Traceback" not in err
 
 
+def test_quiet_prints_only_best_code(capsys):
+    assert main(["--coords=530000,180000;531000,181000", "--quiet"]) == 0
+    assert capsys.readouterr().out == "EPSG:27700\n"
+    assert main(["--coords=530000,180000", "-q", "--json"]) == 0
+    assert capsys.readouterr().out.startswith("[{")
+    assert main(["--coords=99999999,0", "-q"]) == 1
+    assert capsys.readouterr().out == "no known CRS fits these coordinates\n"
+
+
 def test_readme_python_example():
     matches = sniff([(1490000.0, 6890000.0)])
     assert [(m.epsg, m.name) for m in matches] == [(3857, "WGS 84 / Pseudo-Mercator")]
