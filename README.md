@@ -2,6 +2,9 @@
 
 Guess the most likely coordinate reference system (EPSG code) of a list of coordinates, or of a GeoJSON/CSV file, from value ranges and known projected extents. Useful when a file arrives without a `.prj` or `crs` member and you need a starting hypothesis. It has no dependencies.
 
+[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/AmmarYasser455/crs-sniffer/blob/main/examples/demo.ipynb)
+· [Demo map](https://ammaryasser455.github.io/crs-sniffer/) · [Sample data](examples/README.md)
+
 ## Install
 
 ```

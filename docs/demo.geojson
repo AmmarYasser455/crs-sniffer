@@ -1,0 +1,5 @@
+{"type": "FeatureCollection", "features": [
+{"type": "Feature", "properties": {"place": "London", "marker": "Trafalgar Square", "file": "london_bng.csv", "points": 3, "best": "EPSG:27700", "name": "OSGB36 / British National Grid", "candidates": ["EPSG:27700", "EPSG:3857"]}, "geometry": {"type": "Point", "coordinates": [-0.128055555, 51.508055555]}},
+{"type": "Feature", "properties": {"place": "Paris", "marker": "Eiffel Tower", "file": "paris_lambert93.csv", "points": 3, "best": "EPSG:2154", "name": "RGF93 v1 / Lambert-93", "candidates": ["EPSG:2154", "EPSG:3857"]}, "geometry": {"type": "Point", "coordinates": [2.294479, 48.858296]}},
+{"type": "Feature", "properties": {"place": "Berlin", "marker": "Brandenburg Gate", "file": "berlin_wgs84.geojson", "points": 3, "best": "EPSG:4326", "name": "WGS 84 (lon/lat)", "candidates": ["EPSG:4326", "EPSG:27700", "EPSG:3857"]}, "geometry": {"type": "Point", "coordinates": [13.377722222, 52.516272222]}}
+]}

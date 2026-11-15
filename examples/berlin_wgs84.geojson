@@ -1,0 +1,4 @@
+{"type":"FeatureCollection","features":[
+{"type":"Feature","properties":{"name":"Brandenburg Gate","wikidata":"Q82425"},"geometry":{"type":"Point","coordinates":[13.377722222,52.516272222]}},
+{"type":"Feature","properties":{"name":"Reichstag","wikidata":"Q151897"},"geometry":{"type":"Point","coordinates":[13.376111111,52.518611111]}},
+{"type":"Feature","properties":{"name":"Alexanderplatz","wikidata":"Q152783"},"geometry":{"type":"Point","coordinates":[13.413611111,52.521666666]}}]}
