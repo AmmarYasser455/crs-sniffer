@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>crs-sniffer demo map</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<style>
+  body { margin: 0; font-family: sans-serif; }
+  header { padding: 8px 12px; }
+  h1 { font-size: 1.2em; margin: 0 0 4px; }
+  p { margin: 0; font-size: 0.9em; }
+  #map { height: 80vh; }
+</style>
+</head>
+<body>
+<header>
+  <h1>crs-sniffer: CRS guesses for three sample files</h1>
+  <p>Each marker is a city whose landmark coordinates (from Wikidata, CC0) were stored in a different CRS; the marker sits on the file's first landmark and the popup shows the EPSG code crs-sniffer ranks first.
+  <a href="https://github.com/AmmarYasser455/crs-sniffer">Source repository</a></p>
+</header>
+<div id="map"></div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+  var map = L.map('map').setView([50.5, 6], 5);
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  }).addTo(map);
+  fetch('demo.geojson').then(function (r) { return r.json(); }).then(function (data) {
+    L.geoJSON(data, {
+      onEachFeature: function (f, layer) {
+        var p = f.properties;
+        layer.bindPopup('<b>' + p.place + '</b> (' + p.marker + ')<br>' + p.file + '<br>best: ' + p.best + ' ' + p.name +
+          '<br>candidates: ' + p.candidates.join(', '));
+      }
+    }).addTo(map);
+  });
+</script>
+</body>
+</html>

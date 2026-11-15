@@ -1,0 +1,5 @@
+[
+  {"file": "london_bng.csv", "place": "London", "marker": "Trafalgar Square", "wikidata": "Q129143", "lon": -0.128055555, "lat": 51.508055555},
+  {"file": "paris_lambert93.csv", "place": "Paris", "marker": "Eiffel Tower", "wikidata": "Q243", "lon": 2.294479, "lat": 48.858296},
+  {"file": "berlin_wgs84.geojson", "place": "Berlin", "marker": "Brandenburg Gate", "wikidata": "Q82425", "lon": 13.377722222, "lat": 52.516272222}
+]
