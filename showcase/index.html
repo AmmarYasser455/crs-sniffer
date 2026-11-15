@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>crs-sniffer showcase: Cairo Metro stations</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+  body { margin: 0; font-family: sans-serif; }
+  header { padding: 8px 12px; }
+  header h1 { font-size: 1.2em; margin: 0 0 4px; }
+  header p { margin: 2px 0; font-size: 0.9em; }
+  #map { position: absolute; top: 96px; bottom: 0; left: 0; right: 0; }
+</style>
+</head>
+<body>
+<header>
+  <h1>crs-sniffer showcase: Cairo Metro stations</h1>
+  <p>86 Cairo Metro station nodes from OpenStreetMap were passed to crs-sniffer without any CRS metadata; red dots are stations, the dashed box is the input extent.</p>
+  <p>It ranks EPSG:4326 (WGS 84 lon/lat) first; click a feature for its candidates. Code: <a href="https://github.com/AmmarYasser455/crs-sniffer">https://github.com/AmmarYasser455/crs-sniffer</a></p>
+</header>
+<div id="map"></div>
+<script>
+  var map = L.map('map');
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  }).addTo(map);
+  function popup(props) {
+    var rows = Object.keys(props).map(function (k) {
+      var v = props[k] === null ? '' : String(props[k]);
+      var cell = document.createElement('td');
+      cell.textContent = v;
+      return '<tr><th style="text-align:left">' + k + '</th>' + cell.outerHTML + '</tr>';
+    });
+    return '<table>' + rows.join('') + '</table>';
+  }
+  fetch('map.geojson').then(function (r) { return r.json(); }).then(function (data) {
+    var layer = L.geoJSON(data, {
+      // Only the Polygon (input extent) is styled here; Point markers keep the
+      // style set in pointToLayer below.
+      style: function (f) {
+        if (f.geometry.type === 'Polygon') {
+          return { color: '#555555', weight: 2, dashArray: '6 4', fill: false };
+        }
+        return {};
+      },
+      pointToLayer: function (f, latlng) {
+        return L.circleMarker(latlng, {
+          radius: 5, color: '#ffffff', weight: 1, fillColor: '#c0392b', fillOpacity: 0.9
+        });
+      },
+      onEachFeature: function (f, l) { l.bindPopup(popup(f.properties)); }
+    }).addTo(map);
+    map.fitBounds(layer.getBounds(), { padding: [20, 20] });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,1385 @@
+{
+"type": "FeatureCollection",
+"source": "OpenStreetMap via Overpass API",
+"license": "ODbL 1.0, (c) OpenStreetMap contributors",
+"fetched": "2026-11-15",
+"features": [
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/312555676",
+"name": "المعادى",
+"name:en": "Maadi",
+"name:ar": "المعادى"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.2580736,
+29.9598395
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/316631605",
+"name": "أم المصريين",
+"name:en": "Omm El Misryeen",
+"name:ar": "أم المصريين"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.2079638,
+30.0052084
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/316632871",
+"name": "البحوث",
+"name:en": "Behooth",
+"name:ar": "البحوث"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.2003443,
+30.0357796
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/316632940",
+"name": "الدقى",
+"name:en": "Dokki",
+"name:ar": "الدقى"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.2120446,
+30.0382224
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/316632961",
+"name": "الأوبرا",
+"name:en": "Opera",
+"name:ar": "الأوبرا"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.2250592,
+30.0419584
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/316633428",
+"name": "السادات",
+"name:en": "Sadat",
+"name:ar": "السادات"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.2353785,
+30.0439485
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/316634158",
+"name": "مسره",
+"name:en": "Massara",
+"name:ar": "مسره"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.2450193,
+30.0711007
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/316634715",
+"name": "محطة مترو روض الفرج",
+"name:en": "Rawd El-Farag",
+"name:ar": "محطة مترو روض الفرج"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.245351,
+30.0805647
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/316634831",
+"name": "سانت تيريزا",
+"name:en": "Sainte Teresa",
+"name:ar": "سانت تيريزا"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.2454098,
+30.0883026
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/316635179",
+"name": "المظلات",
+"name:en": "Al-Mezallat",
+"name:ar": "المظلات"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.2461248,
+30.1040913
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/316636980",
+"name": "حلوان",
+"name:en": "Helwan",
+"name:ar": "حلوان",
+"network": "مترو انفاق القاهرة",
+"operator": "الهيئة القومية للأنفاق"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.3342033,
+29.8488841
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/316638605",
+"name": "طرة الأسمنت",
+"name:en": "Tora El-Asmant",
+"name:ar": "طرة الأسمنت"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.2876941,
+29.9258484
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/316638613",
+"name": "كوتسكا",
+"name:en": "Kozzika",
+"name:ar": "كوتسكا"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.2817074,
+29.9361514
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/316638736",
+"name": "ثكنات المعادي",
+"name:en": "Thakanat El-Maadi",
+"name:ar": "ثكنات المعادي",
+"network": "مترو أنفاق القاهرة",
+"operator": "الهيئة القومية للأنفاق"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.2634668,
+29.9528426
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/316643091",
+"name": "حلمية الزيتون",
+"name:en": "Helmeyet Al-Zaitoun",
+"name:ar": "حلمية الزيتون"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.3139,
+30.1143455
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/329978615",
+"name": "نجيب",
+"name:en": "Mohamed Naguib",
+"name:ar": "محمد نجيب"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.244276,
+30.0453923
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/2110350259",
+"name": "محطة مترو حدائق المعادى",
+"name:en": "Hadayeq El-Maadi Metro Station",
+"name:ar": "محطة مترو حدائق المعادى"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.2506712,
+29.9701006
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/2181318225",
+"name": "الخلفاوي",
+"name:en": "Al-Khalafawy",
+"name:ar": "الخلفاوي"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.2454368,
+30.0977898
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/5007646022",
+"name": "محطة مترو كلية البنات",
+"name:en": "Koleyet El Banat subway station",
+"name:ar": "محطة مترو كلية البنات",
+"operator": "Cairo Metro"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.3292503,
+30.0843667
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/5194246947",
+"name": "محطة مترو دار السلام",
+"name:en": "Dar Al-Salam Metro Station",
+"name:ar": "محطة مترو دار السلام"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.2422043,
+29.98203
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/5194246950",
+"name": "محطة مترو الزهراء",
+"name:en": "Al-Zahraa",
+"name:ar": "محطة مترو الزهراء"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.2313586,
+29.9954381
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/5194295702",
+"name": "الشهداء",
+"name:en": "Shuhada",
+"name:ar": "الشهداء"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.2460174,
+30.061851
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/5194348141",
+"name": "أرض المعارض",
+"name:en": "Cairo Fairground",
+"name:ar": "أرض المعارض"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.3011479,
+30.073329
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/5194348142",
+"name": "العباسية",
+"name:en": "Abbassia",
+"name:ar": "العباسية"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.2840893,
+30.0727858
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/5194348143",
+"name": "عبده باشا",
+"name:en": "Abdou Pasha",
+"name:ar": "عبده باشا"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.2764414,
+30.0653633
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/5194348146",
+"name": "باب الشعرية",
+"name:en": "Bab el Shaaria",
+"name:ar": "باب الشعرية"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.255875,
+30.0537108
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/5194348148",
+"name": "الاهرام",
+"name:en": "Al Ahram",
+"name:ar": "الاهرام"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.3264965,
+30.0913176
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/5194348149",
+"name": "العتبة",
+"name:en": "Attaba",
+"name:ar": "العتبة"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.246899,
+30.0524299
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/5194348153",
+"name": "الإستاد",
+"name:en": "Stadium",
+"name:ar": "الإستاد"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.3173959,
+30.072948
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/5218109287",
+"name": "محطة مترو مار جرجس",
+"name:en": "Mar Girgis",
+"name:ar": "محطة مترو مار جرجس"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.2295229,
+30.0058496
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/5344953908",
+"name": "حدائق حلوان",
+"name:en": "Hadayeq Helwan",
+"name:ar": "حدائق حلوان"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.3040668,
+29.8971871
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/5344953909",
+"name": "وادي حوف",
+"name:en": "Wadi Hof",
+"name:ar": "وادي حوف"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.3134042,
+29.8794379
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/5344953911",
+"name": "عين حلوان",
+"name:en": "Ain Helwan",
+"name:ar": "عين حلوان",
+"network": "مترو انفاق القاهرة",
+"operator": "الهيئة القومية للأنفاق"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.3250068,
+29.8626591
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/5348846068",
+"name": "المعصرة",
+"name:en": "Al-Maasara",
+"name:ar": "المعصرة"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.2997264,
+29.9061043
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/5349031066",
+"name": "المرج",
+"name:en": "Al Marj",
+"name:ar": "المرج"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.3357665,
+30.1520818
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/5349031067",
+"name": "محطة عزبة النخل",
+"name:en": "Ezbet en Nakhl",
+"name:ar": "محطة عزبة النخل"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.3244931,
+30.1392826
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/5349031069",
+"name": "عين شمس",
+"name:en": "Ain Shams",
+"name:ar": "عين شمس"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.3190751,
+30.1310378
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/5349031070",
+"name": "المطرية",
+"name:en": "El-Matareyya",
+"name:ar": "المطرية"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.3139749,
+30.1213801
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/5349031073",
+"name": "حدائق الزيتون",
+"name:en": "Hadayeq Al-Zaitoun",
+"name:ar": "حدائق الزيتون"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.3099368,
+30.1051989
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/5349031074",
+"name": "سراي القبة",
+"name:en": "Saray Al-Qobba",
+"name:ar": "سراي القبة"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.3047494,
+30.0980698
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/5349031075",
+"name": "حمامات القبة",
+"name:en": "Hammamat Al-Qobba",
+"name:ar": "حمامات القبة"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.2981109,
+30.0903392
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/5349031076",
+"name": "كوبري القبة",
+"name:en": "Kobri Al-Qobba",
+"name:ar": "كوبري القبة"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.2938181,
+30.0869694
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/5349031077",
+"name": "منشية الصدر",
+"name:en": "Manshiet Al-Sadr",
+"name:ar": "منشية الصدر"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.2878414,
+30.0822064
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/5349031078",
+"name": "الدمرداش",
+"name:en": "Al-Demerdash",
+"name:ar": "الدمرداش"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.2778133,
+30.0772574
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/5349031080",
+"name": "غمرة",
+"name:en": "Ghamra",
+"name:ar": "الغمرة"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.2646738,
+30.068964
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/5349031081",
+"name": "ناصر",
+"name:en": "Nasser",
+"name:ar": "ناصر"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.2388016,
+30.0535567
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/5349031086",
+"name": "سعد زغلول",
+"name:en": "Saad Zaghloul",
+"name:ar": "سعد زغلول"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.2380818,
+30.036568
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/5349031090",
+"name": "السيدة زينب",
+"name:en": "Sayyeda Zeinab",
+"name:ar": "السيدة زينب"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.2353861,
+30.0292488
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/5349031092",
+"name": "الملك الصالح",
+"name:en": "Al-Malek Al-Saleh",
+"name:ar": "الملك الصالح"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.2312066,
+30.0176827
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/5349031096",
+"name": "طرة البلد",
+"name:en": "Tora El-Balad",
+"name:ar": "طرة البلد"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.2735808,
+29.9463299
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/5353444300",
+"name": "المرج الجديدة",
+"name:en": "New El-Marg",
+"name:ar": "المرج الجديدة"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.338272,
+30.1635097
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/5353485467",
+"name": "عرابي",
+"name:en": "Orabi",
+"name:ar": "عرابي"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.2425378,
+30.0573315
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/7153613350",
+"name": "محطة مترو ألف مسكن",
+"name:en": "Alf Maskan",
+"name:ar": "مترو ألف مسكن"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.3398266,
+30.1180729
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/7153613351",
+"name": "نادي الشمس‎",
+"name:en": "El Shams Club"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.3439721,
+30.1223062
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/7153613352",
+"name": "هارون",
+"name:en": "Haroun",
+"name:ar": "هارون"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.332762,
+30.1011092
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/7153613353",
+"name": "هليوبوليس",
+"name:en": "Heliopolis",
+"name:ar": "هليوبوليس"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.3381815,
+30.1079599
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/9159388948",
+"name": "عدلى منصور",
+"name:en": "Adly Mansour",
+"name:ar": "عدلى منصور"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.4215168,
+30.1470316
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/9159388949",
+"name": "الهايكستب‎",
+"name:en": "El Haykestep",
+"name:ar": "الهايكستب‎"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.4048488,
+30.1438828
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/9159388950",
+"name": "عمر بن الخطاب‎",
+"name:en": "Omar Ebn Elkhatab",
+"name:ar": "عمر بن الخطاب‎"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.39448,
+30.1404081
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/9159388951",
+"name": "قباء‎",
+"name:en": "Qubaa",
+"name:ar": "قباء‎"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.3840616,
+30.1347604
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/9159388952",
+"name": "هشام بركات‎",
+"name:en": "Hesham Barakat",
+"name:ar": "هشام بركات‎"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.3730901,
+30.1309653
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/9159388953",
+"name": "النزهة‎",
+"name:en": "El Nozha",
+"name:ar": "النزهة‎"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.3605199,
+30.1281171
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/9160333614",
+"name": "المنيب",
+"name:en": "Al-Mounib",
+"name:ar": "المنيب"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.2119674,
+29.9811369
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/9160395525",
+"name": "ساقية مكي",
+"name:en": "Sakiat Mekki",
+"name:ar": "ساقية مكي"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.208614,
+29.9954853
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/9162042095",
+"name": "جامعة القاهرة",
+"name:en": "Cairo University",
+"name:ar": "جامعة القاهرة"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.2012032,
+30.0259937
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/9162042096",
+"name": "فيصل",
+"name:en": "Faisal",
+"name:ar": "فيصل"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.2040345,
+30.0172948
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/9162042097",
+"name": "جيزة",
+"name:en": "Giza",
+"name:ar": "جيزة",
+"operator": "The Egyptian Co. for Metro Management & Operation"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.2071246,
+30.0105702
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/9164359293",
+"name": "شبرا الخيمة",
+"name:en": "Shobra Al-Kheima",
+"name:ar": "شبرا الخيمة"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.2434932,
+30.1240927
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/9164359294",
+"name": "كلية الزراعة",
+"name:en": "Koliet El-Zeraa",
+"name:ar": "كلية الزراعة"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.2487433,
+30.1137638
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/9710900077",
+"name": "الجيش",
+"name:en": "El Geish",
+"name:ar": "الجيش"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.267974,
+30.0622622
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/10099279472",
+"name": "ماسبيرو",
+"name:en": "Masbero",
+"name:ar": "ماسبيرو"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.2322096,
+30.0554909
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/10099279485",
+"name": "صفاء حجازي",
+"name:en": "Safaa Hegazy",
+"name:ar": "صفاء حجازي"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.2225161,
+30.062404
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/10099279487",
+"name": "الکيت کات",
+"name:en": "Kit-kat",
+"name:ar": "الکيت کات"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.2129901,
+30.0667936
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/11328539169",
+"name": "محطه مترو محور الضبعة  (محور روض الفرج)",
+"name:en": "El-Dabaa Axis Metro Station (Rod El-Farag Axis)",
+"name:ar": "محطه مترو محور الضبعة  (محور روض الفرج)",
+"network": "مترو القاهرة الكبرى"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.1842088,
+30.1022462
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/11495591793",
+"name": "محطه مترو محور الضبعة  (محور روض الفرج)",
+"name:en": "El-Dabaa Axis Metro Station (Rod El-Farag Axis)",
+"name:ar": "محطه مترو محور الضبعة  (محور روض الفرج)"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.1841656,
+30.1018837
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/11495591819",
+"name": "الطريق الدائري",
+"name:en": "Ring Road"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.1995819,
+30.0964108
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/11495591841",
+"name": "القومية",
+"name:en": "Al-Kawmeiah"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.2088797,
+30.0932033
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/11495591842",
+"name": "البوهي",
+"name:en": "Al-Bohy"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.2104856,
+30.0821151
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/11495591853",
+"name": "إمبابة",
+"name:en": "Imbaba",
+"name:ar": "إمبابة"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.2075611,
+30.0759487
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/11495611079",
+"name": "السودان",
+"name:en": "Sudan",
+"name:ar": "السودان"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.2053352,
+30.0697816
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/11923457960",
+"name": "وادي النيل",
+"name:en": "Wadi El Nile"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.2010183,
+30.0584617
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/11923472283",
+"name": "جامعة الدول",
+"name:en": "Gamet El Dowel"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.1996873,
+30.0509547
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/11923472313",
+"name": "محطة مترو بولاق الدكرور",
+"name:en": "Bulaq El-Dakroor"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.1955031,
+30.0375445
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/11926706145",
+"name": "جامعة القاهرة",
+"name:en": "Cairo University",
+"name:ar": "جامعة القاهرة"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.2013603,
+30.0249004
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/11926766474",
+"name": "التوفيقية",
+"name:en": "Al-Tawfikia"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.2021562,
+30.0650735
+]
+}
+},
+{
+"type": "Feature",
+"properties": {
+"osm_id": "node/14107180933",
+"name": "جامعة حلوان",
+"name:en": "Helwan University",
+"name:ar": "جامعة حلوان"
+},
+"geometry": {
+"type": "Point",
+"coordinates": [
+31.3203657,
+29.8690198
+]
+}
+}
+]
+}

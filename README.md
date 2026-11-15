@@ -5,6 +5,15 @@ Guess the most likely coordinate reference system (EPSG code) of a list of coord
 [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/AmmarYasser455/crs-sniffer/blob/main/examples/demo.ipynb)
 · [Demo map](https://ammaryasser455.github.io/crs-sniffer/) · [Sample data](examples/README.md)
 
+## Showcase
+
+[![Cairo Metro stations sniffed as EPSG:4326](showcase/map.png)](showcase/)
+
+86 Cairo Metro station nodes from OpenStreetMap, passed to crs-sniffer with no CRS metadata,
+are ranked EPSG:4326 first. See the [showcase report](showcase/README.md), the
+[web map](showcase/index.html), the [notebook](showcase/showcase.ipynb) and
+[map.geojson](showcase/map.geojson). Rebuild with `python showcase/make_showcase.py`.
+
 ## Install
 
 ```
