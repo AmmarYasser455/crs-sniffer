@@ -372,3 +372,22 @@ def test_headerless_xyz_csv_validates_z(tmp_path):
         f.write_text(body)
         with pytest.raises(ValueError):
             read_csv(f, allow_z=True)
+
+
+@pytest.mark.parametrize(
+    "name, point, expected",
+    [
+        ("Big Ben (BNG)", (530047.0, 179951.0), [27700, 3857]),
+        ("Eiffel Tower (Lambert-93)", (648237.0, 6862271.0), [2154, 3857]),
+        ("Eiffel Tower (lon, lat)", (2.2945, 48.8584), [4326, 27700, 3857]),
+        ("Tokyo Tower (Mercator)", (15511000.0, 4190000.0), [3857]),
+        ("Statue of Liberty (Mercator)", (-8238300.0, 4966600.0), [3857]),
+    ],
+)
+def test_real_places_known_answers(name, point, expected):
+    assert codes([point]) == expected, name
+
+
+def test_swapped_lat_lon_is_still_degrees():
+    # (lat, lon) for Berlin is also a valid lon/lat pair: axis order is not detected.
+    assert codes([(52.5, 13.4)])[0] == 4326
