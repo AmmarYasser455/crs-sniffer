@@ -391,3 +391,19 @@ def test_real_places_known_answers(name, point, expected):
 def test_swapped_lat_lon_is_still_degrees():
     # (lat, lon) for Berlin is also a valid lon/lat pair: axis order is not detected.
     assert codes([(52.5, 13.4)])[0] == 4326
+
+
+def test_degree_bounds_antimeridian_and_poles():
+    # Taveuni (Fiji) straddles the antimeridian: both signs of lon are valid degrees.
+    fiji = [(179.9, -16.8), (-179.9, -16.8)]
+    assert codes(fiji)[0] == 4326
+    # Poles and +-180 are inside the lon/lat extent; just beyond is not.
+    assert codes([(0.0, 90.0), (0.0, -90.0)])[0] == 4326
+    assert codes([(180.0, 0.0), (-180.0, 0.0)])[0] == 4326
+    assert 4326 not in codes([(0.0, 90.0001)])
+    assert 4326 not in codes([(180.0001, 0.0)])
+
+
+def test_mixed_degrees_and_metres_is_not_degrees():
+    # One projected value among degree-like points rules out lon/lat.
+    assert 4326 not in codes([(13.4, 52.5), (530000.0, 180000.0)])
