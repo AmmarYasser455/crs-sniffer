@@ -407,3 +407,13 @@ def test_degree_bounds_antimeridian_and_poles():
 def test_mixed_degrees_and_metres_is_not_degrees():
     # One projected value among degree-like points rules out lon/lat.
     assert 4326 not in codes([(13.4, 52.5), (530000.0, 180000.0)])
+
+
+def test_real_projected_places_known_answers():
+    # Berlin Alexanderplatz in ETRS89-LAEA (EPSG:3035) is ~(4552000, 3272000).
+    assert sniff([(4552000.0, 3272000.0)])[0].epsg == 3035
+    # Sydney Opera House in Web Mercator is ~(16800000, -4010000): far outside
+    # the European and national grids, so only EPSG:3857 fits.
+    assert [m.epsg for m in sniff([(16800000.0, -4010000.0)])] == [3857]
+    # A negative northing never fits the British National Grid.
+    assert 27700 not in [m.epsg for m in sniff([(530000.0, -1.0)])]
