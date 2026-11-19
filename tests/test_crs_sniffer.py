@@ -417,3 +417,55 @@ def test_real_projected_places_known_answers():
     assert [m.epsg for m in sniff([(16800000.0, -4010000.0)])] == [3857]
     # A negative northing never fits the British National Grid.
     assert 27700 not in [m.epsg for m in sniff([(530000.0, -1.0)])]
+
+
+def test_geojson_null_geometries_multipart_and_holes(tmp_path):
+    # Real Cairo/Giza points; a null-geometry feature is skipped, not an error.
+    doc = {
+        "type": "FeatureCollection",
+        "features": [
+            {"type": "Feature", "properties": {}, "geometry": None},
+            {
+                "type": "Feature",
+                "properties": {},
+                "geometry": {
+                    "type": "MultiPoint",
+                    "coordinates": [[31.2357, 30.0444], [31.1342, 29.9792]],
+                },
+            },
+            {
+                "type": "Feature",
+                "properties": {},
+                "geometry": {
+                    "type": "MultiPolygon",
+                    "coordinates": [
+                        [
+                            [[31.0, 29.9], [31.3, 29.9], [31.3, 30.1], [31.0, 30.1], [31.0, 29.9]],
+                            [[31.1, 30.0], [31.1, 30.05], [31.2, 30.05], [31.1, 30.0]],
+                        ],
+                        [[[32.0, 30.0], [32.1, 30.0], [32.1, 30.1], [32.0, 30.0]]],
+                    ],
+                },
+            },
+        ],
+    }
+    path = tmp_path / "cairo.geojson"
+    path.write_text(json.dumps(doc), encoding="utf-8")
+    points = read_file(path)
+    # Every member, exterior ring and hole is traversed, in (lon, lat) order.
+    assert [tuple(p) for p in points] == [
+        (31.2357, 30.0444),
+        (31.1342, 29.9792),
+        (31.0, 29.9), (31.3, 29.9), (31.3, 30.1), (31.0, 30.1), (31.0, 29.9),
+        (31.1, 30.0), (31.1, 30.05), (31.2, 30.05), (31.1, 30.0),
+        (32.0, 30.0), (32.1, 30.0), (32.1, 30.1), (32.0, 30.0),
+    ]
+    assert sniff(points)[0].epsg == 4326
+
+
+def test_geojson_only_null_geometries_is_an_error(tmp_path):
+    doc = {"type": "FeatureCollection", "features": [{"type": "Feature", "geometry": None}]}
+    path = tmp_path / "empty.geojson"
+    path.write_text(json.dumps(doc), encoding="utf-8")
+    with pytest.raises(ValueError, match="no coordinates"):
+        read_file(path)
