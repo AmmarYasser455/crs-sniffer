@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/brand/logo.png" alt="crs-sniffer logo" width="112">
+</p>
+
 # crs-sniffer
 
 Guess the most likely coordinate reference system (EPSG code) of a list of coordinates, or of a GeoJSON/CSV file, from value ranges and known projected extents. Useful when a file arrives without a `.prj` or `crs` member and you need a starting hypothesis. It has no dependencies.
