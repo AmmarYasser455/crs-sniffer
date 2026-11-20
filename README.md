@@ -1,5 +1,8 @@
 <p align="center">
-  <img src="assets/brand/logo.png" alt="crs-sniffer logo" width="112">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/brand/logo-dark.svg">
+    <img src="assets/brand/logo.svg" alt="crs-sniffer logo" width="120">
+  </picture>
 </p>
 
 # crs-sniffer
