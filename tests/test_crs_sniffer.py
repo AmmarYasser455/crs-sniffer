@@ -469,3 +469,22 @@ def test_geojson_only_null_geometries_is_an_error(tmp_path):
     path.write_text(json.dumps(doc), encoding="utf-8")
     with pytest.raises(ValueError, match="no coordinates"):
         read_file(path)
+
+
+def test_csv_bom_header_case_extra_columns_and_blank_lines(tmp_path):
+    # Spreadsheet export: UTF-8 BOM, mixed-case header, extra column, blank line.
+    # Berlin (13.405 E, 52.52 N) and Cairo (31.2357 E, 30.0444 N) are lon/lat degrees.
+    path = tmp_path / "cities.csv"
+    path.write_bytes(
+        b"\xef\xbb\xbfName,Lat,LON\nBerlin,52.52,13.405\n\nCairo,30.0444,31.2357\n"
+    )
+    assert read_csv(path) == [(13.405, 52.52), (31.2357, 30.0444)]
+    assert codes(read_file(path))[0] == 4326
+
+
+def test_csv_semicolon_projected_header_ranks_lambert93(tmp_path, capsys):
+    # Paris area in Lambert-93 (E 651 000, N 6 862 000), semicolon-separated.
+    path = tmp_path / "paris.csv"
+    path.write_text("easting;northing\n651000;6862000\n652000;6863000\n", encoding="utf-8")
+    assert main([str(path), "--quiet"]) == 0
+    assert capsys.readouterr().out.strip() == "EPSG:2154"
