@@ -488,3 +488,24 @@ def test_csv_semicolon_projected_header_ranks_lambert93(tmp_path, capsys):
     path.write_text("easting;northing\n651000;6862000\n652000;6863000\n", encoding="utf-8")
     assert main([str(path), "--quiet"]) == 0
     assert capsys.readouterr().out.strip() == "EPSG:2154"
+
+
+def test_geojson_bom_and_geometry_collection(tmp_path):
+    # Real Cairo/Giza positions in a Feature holding a GeometryCollection,
+    # saved with a UTF-8 BOM (as some Windows tools do).
+    feature = {
+        "type": "Feature",
+        "properties": {},
+        "geometry": {
+            "type": "GeometryCollection",
+            "geometries": [
+                {"type": "Point", "coordinates": [31.2357, 30.0444]},
+                {"type": "LineString", "coordinates": [[31.1342, 29.9792], [31.2089, 30.0478]]},
+            ],
+        },
+    }
+    path = tmp_path / "collection.geojson"
+    path.write_bytes(b"\xef\xbb\xbf" + json.dumps(feature).encode("utf-8"))
+    points = read_file(path)
+    assert points == [(31.2357, 30.0444), (31.1342, 29.9792), (31.2089, 30.0478)]
+    assert codes(points)[0] == 4326
